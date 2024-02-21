@@ -1,0 +1,30 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "WACCBIP R Training"
+  navbar:
+    logo: "images/logo.png"
+    left:
+      - href: index.qmd
+        text: Home
+      - text: "Getting Started"
+        href: 01-start.qmd
+      - text: "Introduction"
+        href: 02-IntroR.qmd
+      - text: "Tidyverse"
+        href: 03-tidyverse.qmd
+      - text: "dplyr"
+        href: 04-dplyr.qmd
+      - text: "ggplot2"
+        href: 05-ggplot2.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+editor: visual
+

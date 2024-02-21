@@ -1,0 +1,362 @@
+---
+title: "Introduction"
+---
+
+<head>
+
+```{=html}
+<script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
+```
+</head>
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+::: objectives
+<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+
+-   What is R?
+-   Understand how to use functions in *base R*
+-   Understand R datatypes
+:::
+
+## What is R?
+
+[R](http://www.r-project.org/) is an extremely powerful programming language for working with data, applying statistics and creating publication ready graphics. In this lesson you will learn how to program in R and use the RStudio environment. We will cover the basics of the R syntax using its built in packages (base R), as well as importing data, creating simple graphics and running statistical tests.
+
+## Why is R useful?
+
+-   It's **free!**
+
+-   It's **Powerful**. There are many libraries for application specific tasks.
+
+    -   [Bioconductor](https://www.bioconductor.org/) is a repository for bioinformatics R software.
+
+    -   [Tidyverse](https://www.tidyverse.org/) packages for data science with a shared philosophy for storing, manipulating and visualising data.
+
+-   Presentation quality graphics
+
+    -   Save as a png, pdf or svg
+
+-   Generate reproducible and persistent results
+
+    -   R commands and analyses can be saved for reproducible and persistent analyses.
+    -   Create automated scripts to replicate analysis on different datasets.
+
+-   [RStudio](https://www.rstudio.com/) provides an interactive environment for working in R.
+
+-   [R markdown](https://rmarkdown.rstudio.com/) can generate documents to present your code, annotation and results in useful reports.
+
+-   [Shiny](https://shiny.rstudio.com/) can produce interactive applications for exploratory data analysis.
+
+## R terms used in this workshop
+
+-   **Working directory**
+
+    -   This is the directory used to store your data and results.
+    -   It is useful if it is also the directory where your input data is stored.
+
+-   **Data classes**
+
+    -   Values in R are assigned a class to help functions to interpret them. Some common classes are:
+    -   **numeric**: Numbers
+    -   **character**: Strings of text
+    -   **factor**: Labels for categorical data (e.g. species, sex)
+
+-   **Vector**
+
+    -   A collection of values of one data type
+    -   Equivalent to a column in a table
+    -   Items in the vector can be named
+
+-   **Data Frame**
+
+    -   A table of values
+    -   Essentially a collection of vectors as columns
+    -   Columns can be different data types
+    -   Columns must have the same size
+
+-   **Matrix**
+
+    -   A table where columns and rows are related
+    -   Must all be the same data type
+
+-   **List**
+
+    -   Lists are collections of R objects
+    -   Each item in the list has a unique index or name
+    -   A list can contain items of different object types and classes (e.g single values, vectors, data frames, matrices, other lists...)
+
+## R Syntax
+
+R is a **functional** programming language:
+
+-   Nearly every command is the name of a function followed by parentheses.
+-   The inputs to a function, including different options, are placed in the brackets.
+-   You can use the <kbd>Tab</kbd> key to see the options available or use the help documentation for each function.
+
+Typical command structure:
+
+```{r, eval=F}
+Function(data, options, moreOptions)
+```
+
+Let's run a function on a real data set. The `cars` data set is built into base R. We can look at it by typing its name.
+
+```{r}
+cars
+```
+
+We can see that this is a table of values. If we run the `class` function we will see that R recognises this as a `data.frame`.
+
+```{r}
+class(cars)
+```
+
+Now let's run a more useful function. The `plot` function in R is used for making basic graphs. Try plotting the speed column against the dist (stopping distance) column.
+
+```{r}
+## Use the options within the plot function to customise the output
+plot(cars, xlab="Car Speed (mph)", ylab="Stopping Distance (ft)")
+```
+
+We can use the `=` sign or `<-` to store the output of a function as an object,
+
+```{r, eval=F}
+## These statements are identical
+result = Function(data, options, moreOptions)
+result <- Function(data, options, moreOptions)
+```
+
+Try storing the output of the `summary` function on the `cars` data set. You will see the object `sum_cars` appear in your Environment tab.
+
+```{r}
+sum_cars = summary(cars)
+```
+
+To see what this object holds, just type its name.
+
+```{r}
+sum_cars
+```
+
+Not all functions need arguments. For instance, the `getwd` which returns the path of your working directory.
+
+```{r, eval=F}
+getwd()
+```
+
+If you want to change the working directory you can use `setwd("/path/to/new_directory")` or use the *session* menu in RStudio.
+
+Help is also a function in R. The command below provides the help page for the *function* `read.table`
+
+```{r, eval=FALSE}
+help(read.table)
+```
+
+We can also search the help documentation using `help.search`. Let's see if we can find a function for running a t-test.
+
+```{r, eval=FALSE}
+help.search("t test")
+```
+
+**NOTE** quotes are needed for strings (character text), they are not needed when referring to R data objects or function names.
+
+There is a short cut for help, `?`, which shows the help page for a function.
+
+```{r, eval=FALSE}
+# same as help(read.table)
+?read.table
+```
+
+`??` searches for help pages on functions, same as help.search("phrase")
+
+```{r, eval=FALSE}
+# same as help.search("t test")
+??"t test"
+```
+
+::: key-points
+<h2><i class="fas fa-thumbtack"></i> Key points</h2>
+
+-   **Data classes**: Understand different data classes (numeric, character, factor)
+-   **R objects**: Understand different ways to structure data in R (vectors, dataframes, matrices, lists). There are several other types of R object.
+-   **Functions**: Code in R is run within functions.
+-   **Help**: Use the help features to find out how a function works.
+:::
+
+## R datatypes
+
+It is possible to create a vector by typing data directly into R using the combine function `c`. Think of it as a concatenate or combine function.
+
+```{r}
+x   <-  c(1,2,3,4,5)
+```
+
+This creates a vector named 'x' which stores the numbers 1-5.
+
+You can see what is in an object at any time by typing its name:
+
+```{r}
+x
+```
+
+Character values needs to be quoted, otherwise R will look for a data object of that name.
+
+```{r}
+daysofweek <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
+```
+
+You can create data frames from vectors using the `data.frame` function:
+
+```{r}
+table <- data.frame(Index=x,Day=daysofweek)
+```
+
+Usually, you will want to input data from a file. We will learn how to do this in the next section. You can read files on your computer or from a URL. R also has a few built-in datasets you can play with e.g. the *iris* dataset.
+
+```{r}
+iris
+```
+
+R stores `table` as a data frame, containing multiple vectors.
+
+```{r}
+class(iris)
+```
+
+We can look at a datafram by typing its name, but this prints a lot of rows. Using the `head()` function will only print the first few lines;
+
+```{r}
+head(iris, n=5)
+```
+
+You can also use the `View()` command to open data frames in the file pane.
+
+You can also print individual columns of a dataframe using the `$` notation.
+
+```{r}
+head(iris$Sepal.Length, n=5)
+```
+
+## 
+Inspecting a dataset
+
+Let's use some simple functions to inspect and summarise our data.
+
+```{r}
+summary(iris) # Summary of the whole data frame 
+```
+
+```{r}
+summary(iris$Sepal.Width) # Summary information for column A 
+```
+
+```{r}
+mean(iris$Petal.Length) 
+```
+
+Try some other functions like `mean`, `median`, `min` and `max`.
+
+```{r}
+order(iris$Petal.Width) #  The order function sorts a vector.
+```
+
+We can access specific rows, columns and cells within a table using square brackets: TABLE\[ROW,COLUMN\]. Try the following commands.
+
+```{r eval=FALSE}
+##Print the value in the first column of the first row
+iris[1,1]
+##Use blanks to print an entire row or column
+iris[2,]
+iris[,3]
+##You can select multiple rows and columns with ranges (:) or the c() function
+iris[1:5,c(3,5)]
+##You can also use row or column names
+iris[,"Species"]
+##You can select rows or columns based on criteria (subsetting). 
+iris[iris$Petal.Width>50,]
+```
+
+## Plotting with R
+
+Base R has some basic plotting functions but we will learn to use the `ggplot2` library for high quality graphics.
+
+It can useful to know the options available in "base" R to quickly view your data.
+
+### **Histograms**
+
+The `ChickWeight` data set is another data frame built into R. Using this larger set of data we can modify the number of vertical columns in a histogram with the option `breaks`.
+
+```{r}
+hist(ChickWeight$weight, breaks=5)
+```
+
+```{r}
+hist(ChickWeight$weight, breaks=50)
+```
+
+### **Boxplots**
+
+```{r}
+boxplot(iris$Sepal.Length)
+```
+
+### **Scatter plots**
+
+```{r, wd}
+plot(iris$Sepal.Length,iris$Sepal.Width)
+```
+
+## Statistical testing
+
+R has many functions for statistical testing.
+
+In the example below we will create a dataframe which contains the weights of 10 rabbits before and after some form of treatment.
+
+We then want to ask if the treatment has a significant effect on the weight of the rabbits. We can use a paired t-test to do this.
+
+```{r}
+
+# The data set 
+# Weight of the rabbit before treatment 
+before <-c(190.1, 190.9, 172.7, 213, 231.4,  
+           196.9, 172.2, 285.5, 225.2, 113.7) 
+  
+# Weight of the rabbit after treatment 
+after <-c(392.9, 313.2, 345.1, 393, 434,  
+          227.9, 422, 383.9, 392.3, 298) 
+  
+# Create a data frame 
+rabbits <- data.frame(  
+  sample=c(1:10), ##Assign sampleIDs
+  before=before,
+  after=after
+)
+
+# Plot the differences in weights
+boxplot(rabbits$after - rabbits$before)
+
+# Use a paired t-test to see if differences in weight are statistically significant
+t.test(rabbits$after,rabbits$before,paired = T,alternative = "two.sided")
+```
+
+::: resources
+<h2><i class="fas fa-book"></i> Further Learning</h2>
+
+Further examples of statistical testing in R are available on the [sthda](http://www.sthda.com/english/wiki/comparing-means-in-r) website.
+
+The [rstatix](https://github.com/kassambara/rstatix) package is useful for applying statistical tests on tables of data and is compatible with the Tidy data structures and pipes that we will learn later on in these lessons.
+:::
+
+<br>
+
+::: key-points
+<h2><i class="fas fa-thumbtack"></i> Key points</h2>
+
+-   R is a functional programming language
+-   RStudio is an interactive environment for programming in R
+-   Base R functions can be used to import, manipulate and plot data
+-   There are many functions for statistical analysis in R
+:::
